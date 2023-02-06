@@ -17,6 +17,12 @@ import java.nio.charset.StandardCharsets;
 
 public class MockData {
 
+    /**
+     * It reads the invoice.json file, converts it to a string, and then converts that string to a list
+     * of Invoice objects
+     * 
+     * @return A list of Invoice objects
+     */
     public static List<Invoice> getInvoices() throws IOException {
         InputStream inputStream = Resources.getResource("invoice.json").openStream();
         String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
@@ -24,6 +30,12 @@ public class MockData {
         return new Gson().fromJson(json, listType);
     }
 
+    /**
+     * It reads the customer.json file, converts it to a string, and then converts that string to a
+     * list of Customer objects
+     * 
+     * @return A list of Customer objects
+     */
     public static List<Customer> getCustomers() throws IOException {
         InputStream inputStream = Resources.getResource("customer.json").openStream();
         String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
