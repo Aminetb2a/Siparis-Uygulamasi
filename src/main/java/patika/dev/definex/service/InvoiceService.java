@@ -16,21 +16,13 @@ public class InvoiceService {
         return MockData.getInvoices();
     }
 
-    public List<Invoice> getTotalInvoicesByMonth(int month) throws IOException {
-        return MockData.getInvoices()
-                .parallelStream()
-                .filter(invoice -> invoice.getTransDate().getMonthValue() == month)
-                .collect(Collectors.toList());
-    }
-
     public List<String> getTotalInvoicesByMonth(int month, double average) throws IOException {
-        Map<String, Double> averageGroupBySector = MockData.getInvoices()
+        return MockData.getInvoices()
                 .parallelStream()
                 .collect(groupingBy(Invoice::getSector,
                         filtering(invoice -> invoice.getTransDate().getMonthValue() == month,
-                                averagingDouble(Invoice::getTotalAmount))));
-
-        return averageGroupBySector.entrySet()
+                                averagingDouble(Invoice::getTotalAmount))))
+                .entrySet()
                 .parallelStream()
                 .filter(sector -> sector.getValue() < average )
                 .map(Map.Entry::getKey)
@@ -44,15 +36,19 @@ public class InvoiceService {
                 .collect(Collectors.toList());
     }
 
-    public List<String> getInvoicesTotalSmallerThanCustomerName(double total) throws IOException {
+    public List<String> getCustomerNamesWithTotalInvoicesSmallerThan(double total) throws IOException {
         return MockData.getInvoices()
                 .parallelStream()
-                .filter(invoice -> invoice.getTotalAmount() < total)
-                .map(Invoice::getCustomerName)
+                .collect(groupingBy(Invoice::getCustomerName,
+                        summingDouble(Invoice::getTotalAmount)))
+                .entrySet()
+                .parallelStream()
+                .filter(map -> map.getValue() < total)
+                .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
-    public double getInvoicesAverageOfTotalAmountGreaterThan(double total) throws IOException {
+    public double getAverageOfInvoicesTotalAmountGreaterThan(double total) throws IOException {
         return MockData.getInvoices()
                 .parallelStream()
                 .filter(invoice -> invoice.getTotalAmount() > total)
