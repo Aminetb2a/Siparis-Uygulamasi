@@ -1,10 +1,11 @@
 package patika.dev.definex.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
 
 @Data
+@Builder
 public class Customer {
     private long id;
     private String name;
@@ -13,7 +14,7 @@ public class Customer {
     private String surname;
     private long customerNo;
     private String postalCode;
-    private LocalDate insDate;
+    private String insDate;
     private String shipAddress;
     private String billAddress;
 
