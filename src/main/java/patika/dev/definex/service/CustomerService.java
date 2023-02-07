@@ -4,12 +4,13 @@ import patika.dev.definex.entity.Customer;
 import patika.dev.definex.mockData.MockData;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomerService {
 
-    public List<Customer> getCustomerList() throws IOException {
+    public List<Customer> getAllCustomer() throws IOException {
         return MockData.getCustomers();
     }
 
@@ -17,17 +18,17 @@ public class CustomerService {
         MockData.getCustomers().add(customer);
     }
 
-    public List<Customer> filterCustomerByName(String subName) throws IOException {
+    public List<Customer> getCustomerByName(String subName) throws IOException {
         return MockData.getCustomers()
                 .parallelStream()
-                .filter(customer -> customer.getName().contains(subName))
+                .filter(customer -> customer.getName().toLowerCase().contains(subName))
                 .collect(Collectors.toList());
     }
 
     public List<Customer> getCustomerByInsertionMonth(int month) throws IOException {
         return MockData.getCustomers()
                 .parallelStream()
-                .filter(customer -> customer.getInsDate().getMonthValue() == month)
+                .filter(customer -> LocalDate.parse(customer.getInsDate()).getMonthValue() == month)
                 .collect(Collectors.toList());
     }
 
