@@ -3,6 +3,7 @@ package patika.dev.definex.service;
 import patika.dev.definex.entity.Invoice;
 import patika.dev.definex.mockData.MockData;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.io.IOException;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class InvoiceService {
         return MockData.getInvoices()
                 .parallelStream()
                 .collect(groupingBy(Invoice::getSector,
-                        filtering(invoice -> invoice.getTransDate().getMonthValue() == month,
+                        filtering(invoice -> LocalDate.parse(invoice.getTransDate()).getMonthValue() == month,
                                 averagingDouble(Invoice::getTotalAmount))))
                 .entrySet()
                 .parallelStream()
