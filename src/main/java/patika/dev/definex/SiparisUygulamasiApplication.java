@@ -17,7 +17,7 @@ public class SiparisUygulamasiApplication {
 
 
         //Tüm müşterileri listeleyin
-        System.out.println("\n\n*************************Tüm müşterileri listeleyin************************\n");
+        System.out.println("\n\n*************************Tüm müşterileri listeleyin*************************\n");
         customerService.getAllCustomer().stream().forEach(System.out::println);
 
 
@@ -38,37 +38,37 @@ public class SiparisUygulamasiApplication {
 
 
         //        İçerisinde ‘C’ harfi olan müşterileri listeleyin
-        System.out.println("\n\n*************************İçerisinde ‘C’ harfi olan müşterileri listeleyin************************\n");
+        System.out.println("\n\n*************************İçerisinde ‘C’ harfi olan müşterileri listeleyin*************************\n");
         System.out.println((customerService.getCustomerByName("c")));
 
 
         //        Haziran ayında kayıt olan müşterilerin faturalarınının toplam tutarını listeleyin
-        System.out.println("\n\n*************************Haziran ayında kayıt olan müşterilerin faturalarınının toplam tutarını listeleyin************************\n");
+        System.out.println("\n\n*************************Haziran ayında kayıt olan müşterilerin faturalarınının toplam tutarını listeleyin*************************\n");
         System.out.println((commonService.getTotalAmountOfAllCustomersByInsertionMonth(06)));
 
 
         //        Sistemdeki tüm faturaları listeleyin
-        System.out.println("\n\n*************************Sistemdeki tüm faturaları listeleyin************************\n");
+        System.out.println("\n\n*************************Sistemdeki tüm faturaları listeleyin*************************\n");
         invoiceService.getAllInvoices().stream().forEach(System.out::println);
 
 
         //        Sistemdeki 1500TL üstündeki faturaları listeleyin
-        System.out.println("\n\n*************************Sistemdeki 1500TL üstündeki faturaları listeleyin************************\n");
+        System.out.println("\n\n*************************Sistemdeki 1500TL üstündeki faturaları listeleyin*************************\n");
         invoiceService.getInvoicesTotalGreaterThan(1500).stream().forEach(System.out::println);
 
 
         //        Sistemdeki 1500TL üstündeki faturaları ortalamasını hesaplayın
-        System.out.println("\n\n*************************Sistemdeki 1500TL üstündeki faturaları ortalamasını hesaplayın************************\n");
+        System.out.println("\n\n*************************Sistemdeki 1500TL üstündeki faturaları ortalamasını hesaplayın*************************\n");
         System.out.println((invoiceService.getAverageOfInvoicesTotalAmountGreaterThan(1500)));
 
 
         //        Sistemdeki 500TL altındaki faturalara sahip müşterilerin isimleri listeleyin
-        System.out.println("\n\n*************************Sistemdeki 500TL altındaki faturalara sahip müşterilerin isimleri listeleyin************************\n");
+        System.out.println("\n\n*************************Sistemdeki 500TL altındaki faturalara sahip müşterilerin isimleri listeleyin*************************\n");
         invoiceService.getCustomerNamesWithTotalInvoicesSmallerThan(500).stream().forEach(System.out::println);
 
 
         //        Haziran ayını faturalarını ortalaması 750 altı olan firmalarının hangi sektörde olduğunu listeleyen kodu yazın.
-        System.out.println("\n\n*************************Haziran ayını faturalarını ortalaması 750 altı olan firmalarının hangi sektörde olduğunu listeleyen kodu yazın.************************\n");
+        System.out.println("\n\n*************************Haziran ayını faturalarını ortalaması 750 altı olan firmalarının hangi sektörde olduğunu listeleyen kodu yazın.*************************\n");
         invoiceService.getTotalAmountAverageInvoicesByMonth(06, 750).stream().forEach(System.out::println);
     }
 }
