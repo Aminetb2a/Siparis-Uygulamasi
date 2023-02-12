@@ -13,18 +13,19 @@ public class SiparisUygulamasiApplication {
 
     private final static String leftAlignFormat = "%n%n\t************************* %s *************************%n%n";
 
-    public static void main(String[] args) throws IOException {
+    {
+        try {
+            System.out.println(FigletFont.convertOneLine("Sipariş Uygulaması"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        System.out.println(FigletFont.convertOneLine("Sipariş Uygulaması"));
+    public static void main(String[] args) {
 
         InvoiceService invoiceService = new InvoiceService();
         CustomerService customerService = new CustomerService();
         CommonService commonService = new CommonService(invoiceService, customerService);
-
-
-        //Tüm müşterileri listeleyin
-        System.out.format(leftAlignFormat, "Tüm müşterileri listesı");
-        customerService.getAllCustomer().stream().forEach(System.out::println);
 
 
         //Yeni Müşteri oluşturabilen
@@ -41,6 +42,13 @@ public class SiparisUygulamasiApplication {
                 .insDate(LocalDate.now().toString())
                 .build();
         customerService.addCustomer(customer);
+
+        customerService.addCustomer();
+
+
+        //Tüm müşterileri listeleyin
+        System.out.format(leftAlignFormat, "Tüm müşterileri listesı");
+        customerService.getAllCustomer().stream().forEach(System.out::println);
 
 
         //İçerisinde ‘C’ harfi olan müşterileri listeleyin
