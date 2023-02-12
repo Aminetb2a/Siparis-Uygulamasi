@@ -1,6 +1,6 @@
 package patika.dev.definex.service;
 
-import patika.dev.definex.entity.Customer;
+import patika.dev.definex.entity.BaseModel;
 import patika.dev.definex.entity.Invoice;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class CommonService {
     public double getTotalAmountOfAllCustomersByInsertionMonth(int month) {
         List<Long> customers = customerService.getCustomerByInsertionMonth(month)
                 .parallelStream()
-                .map(Customer::getId)
+                .map(BaseModel::getId)
                 .collect(Collectors.toList());
 
         return invoiceService.getAllInvoices()
