@@ -2,8 +2,6 @@ package patika.dev.definex.entity;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class Invoice {
     private long id;
@@ -16,7 +14,7 @@ public class Invoice {
     private String payType;
     private long customerId;
     private String customerName;
-    private List<Long> orderId;
+    private long orderId;
     private String description;
     private double totalAmount;
     private String transDate;
