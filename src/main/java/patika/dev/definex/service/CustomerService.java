@@ -6,17 +6,29 @@ import patika.dev.definex.mockData.MockData;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class CustomerService {
 
+    private final static Random rand = new Random();
+    private static List<Customer> customerList = null;
+
+    {
+        try {
+            customerList = MockData.getCustomers();
+        } catch (Exception aE) {
+            aE.printStackTrace();
+        }
+    }
+
     /**
      * This function returns a list of customers.
-     * 
+     *
      * @return A list of customers
      */
     public List<Customer> getAllCustomer() throws IOException {
-        return MockData.getCustomers();
+        return customerList;
     }
 
     /**
@@ -25,7 +37,7 @@ public class CustomerService {
      * @param customer The customer object that is being added to the list.
      */
     public void addCustomer(Customer customer) throws IOException {
-        MockData.getCustomers().add(customer);
+        customerList.add(customer);
     }
 
     /**
@@ -35,7 +47,7 @@ public class CustomerService {
      * @return A list of customers whose name contains the substring subName.
      */
     public List<Customer> getCustomerByName(String subName) throws IOException {
-        return MockData.getCustomers()
+        return customerList
                 .parallelStream()
                 .filter(customer -> customer.getName().toLowerCase().contains(subName))
                 .collect(Collectors.toList());
@@ -48,7 +60,7 @@ public class CustomerService {
      * @return A list of customers that were inserted in the month of the parameter.
      */
     public List<Customer> getCustomerByInsertionMonth(int month) throws IOException {
-        return MockData.getCustomers()
+        return customerList
                 .parallelStream()
                 .filter(customer -> LocalDate.parse(customer.getInsDate()).getMonthValue() == month)
                 .collect(Collectors.toList());
