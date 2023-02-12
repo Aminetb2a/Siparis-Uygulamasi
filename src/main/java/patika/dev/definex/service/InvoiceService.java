@@ -3,9 +3,9 @@ package patika.dev.definex.service;
 import patika.dev.definex.entity.Invoice;
 import patika.dev.definex.mockData.MockData;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -13,13 +13,23 @@ import static java.util.stream.Collectors.*;
 
 public class InvoiceService {
 
+    private static List<Invoice> invoiceList = null;
+
+    {
+        try {
+            invoiceList = MockData.getInvoices();
+        } catch (Exception aE) {
+            aE.printStackTrace();
+        }
+    }
+
     /**
      * This function returns a list of invoices.
-     * 
+     *
      * @return A list of Invoice objects.
      */
     public List<Invoice> getAllInvoices() throws IOException {
-        return MockData.getInvoices();
+        return invoiceList;
     }
 
     /**
@@ -32,7 +42,7 @@ public class InvoiceService {
      * for the month.
      */
     public List<String> getTotalAmountAverageInvoicesByMonth(int month, double average) throws IOException {
-        return MockData.getInvoices()
+        return invoiceList
                 .parallelStream()
                 .collect(filtering(invoice -> LocalDate.parse(invoice.getTransDate()).getMonthValue() == month,
                         groupingBy(Invoice::getSector,
@@ -51,7 +61,7 @@ public class InvoiceService {
      * @return A list of invoices with a total amount greater than the total parameter.
      */
     public List<Invoice> getInvoicesTotalGreaterThan(double total) throws IOException {
-        return MockData.getInvoices()
+        return invoiceList
                 .parallelStream()
                 .filter(invoice -> invoice.getTotalAmount() > total)
                 .collect(Collectors.toList());
@@ -64,7 +74,7 @@ public class InvoiceService {
      * @return A list of customer names with total invoices smaller than the total amount.
      */
     public List<String> getCustomerNamesWithTotalInvoicesSmallerThan(double total) throws IOException {
-        return MockData.getInvoices()
+        return invoiceList
                 .parallelStream()
                 .collect(groupingBy(Invoice::getCustomerName,
                         summingDouble(Invoice::getTotalAmount)))
@@ -84,7 +94,7 @@ public class InvoiceService {
      * the parameter total.
      */
     public double getAverageOfInvoicesTotalAmountGreaterThan(double total) throws IOException {
-        return MockData.getInvoices()
+        return invoiceList
                 .parallelStream()
                 .filter(invoice -> invoice.getTotalAmount() > total)
                 .mapToDouble(Invoice::getTotalAmount)
