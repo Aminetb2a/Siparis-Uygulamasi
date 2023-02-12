@@ -1,13 +1,12 @@
 package patika.dev.definex.entity;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 
 @Data
-@Builder
-public class Customer {
-    private long id;
+@SuperBuilder
+public class Customer extends BaseModel {
     private String name;
     private String email;
     private String phone;

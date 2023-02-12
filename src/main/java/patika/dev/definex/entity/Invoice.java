@@ -1,10 +1,11 @@
 package patika.dev.definex.entity;
 
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-public class Invoice {
-    private long id;
+@SuperBuilder
+public class Invoice extends BaseModel {
     private double qty;
     private double tax;
     private long itemId;

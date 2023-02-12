@@ -1,12 +1,13 @@
 package patika.dev.definex.entity;
 
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Data
-public class Order {
-    private long id;
+@SuperBuilder
+public class Order extends BaseModel {
     private double qty;
     private long itemId;
     private long orderNo;
