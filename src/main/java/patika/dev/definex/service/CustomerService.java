@@ -3,7 +3,6 @@ package patika.dev.definex.service;
 import patika.dev.definex.entity.Customer;
 import patika.dev.definex.mockData.MockData;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +27,7 @@ public class CustomerService {
      *
      * @return A list of customers
      */
-    public List<Customer> getAllCustomer() throws IOException {
+    public List<Customer> getAllCustomer() {
         return customerList;
     }
 
@@ -37,14 +36,14 @@ public class CustomerService {
      *
      * @param customer The customer object that is being added to the list.
      */
-    public void addCustomer(Customer customer) throws IOException {
+    public void addCustomer(Customer customer) {
         customerList.add(customer);
     }
 
     /**
      * This function adds a customer to the list of customers.
      */
-    public void addCustomer() throws IOException {
+    public void addCustomer() {
         Customer customer = Customer.builder()
                 .id(rand.nextLong())
                 .name("Aldis")
@@ -67,7 +66,7 @@ public class CustomerService {
      * @param subName The substring to search for in the customer name.
      * @return A list of customers whose name contains the substring subName.
      */
-    public List<Customer> getCustomerByName(String subName) throws IOException {
+    public List<Customer> getCustomerByName(String subName) {
         return customerList
                 .parallelStream()
                 .filter(customer -> customer.getName().toLowerCase().contains(subName))
@@ -76,11 +75,11 @@ public class CustomerService {
 
     /**
      * This function returns all customers whose insertion date is in the given month.
-     * 
+     *
      * @param month The month of the year (1-12)
      * @return A list of customers that were inserted in the month of the parameter.
      */
-    public List<Customer> getCustomerByInsertionMonth(int month) throws IOException {
+    public List<Customer> getCustomerByInsertionMonth(int month) {
         return customerList
                 .parallelStream()
                 .filter(customer -> LocalDate.parse(customer.getInsDate()).getMonthValue() == month)
