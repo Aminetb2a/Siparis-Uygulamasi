@@ -34,14 +34,14 @@ public class InvoiceService {
     public List<String> getTotalAmountAverageInvoicesByMonth(int month, double average) throws IOException {
         return MockData.getInvoices()
                 .parallelStream()
-                .collect(groupingBy(Invoice::getSector,
-                        filtering(invoice -> LocalDate.parse(invoice.getTransDate()).getMonthValue() == month,
+                .collect(filtering(invoice -> LocalDate.parse(invoice.getTransDate()).getMonthValue() == month,
+                        groupingBy(Invoice::getSector,
                                 averagingDouble(Invoice::getTotalAmount))))
                 .entrySet()
                 .parallelStream()
-                .filter(sector -> sector.getValue() < average )
+                .filter(sector -> sector.getValue() < average)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     /**
