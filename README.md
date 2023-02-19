@@ -1,6 +1,6 @@
 # Sipariş Uygulaması
 
-This a test application is related
+This test application is related
 to [DefineX Java Spring Practicum](https://cohorts.patika.dev/cohortDetails/definex-java-spring-practicum/events) hosted
 in [Patika.dev](https://patika.dev/).
 
